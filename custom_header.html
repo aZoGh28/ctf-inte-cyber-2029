@@ -1,0 +1,124 @@
+<style>
+/* CS29-CUSTOM-START */
+:root { --cs-accent: #10b981; --cs-accent-soft: rgba(16,185,129,0.12); }
+
+/* ---------- En-tete de page (jumbotron) ---------- */
+.jumbotron {
+  background: transparent !important;
+  border: none !important;
+  padding: 3rem 1rem 0.5rem !important;
+  text-align: center;
+}
+.jumbotron h1 {
+  font-weight: 800;
+  letter-spacing: -2px;
+}
+
+/* ---------- Challenges : en-tetes de categorie ---------- */
+.category-header {
+  border-top: 1px solid var(--bs-border-color);
+  padding-top: 1.75rem;
+  margin-top: 0.5rem;
+}
+.category-header > * {
+  font-weight: 700;
+  letter-spacing: -0.5px;
+}
+.category-header::before {
+  content: "";
+  display: inline-block;
+  width: 22px; height: 3px;
+  background: var(--cs-accent);
+  border-radius: 3px;
+  margin-bottom: 10px;
+}
+
+/* ---------- Challenges : cartes ---------- */
+.challenge-button.btn-dark {
+  --bs-btn-bg: var(--bs-body-bg);
+  --bs-btn-color: var(--bs-emphasis-color);
+  --bs-btn-border-color: var(--bs-border-color);
+  --bs-btn-hover-bg: var(--bs-body-bg);
+  --bs-btn-hover-color: var(--bs-emphasis-color);
+  --bs-btn-hover-border-color: var(--cs-accent);
+  --bs-btn-active-bg: var(--bs-body-bg);
+  --bs-btn-active-color: var(--bs-emphasis-color);
+  border-width: 1px;
+  border-radius: 18px;
+  min-height: 118px;
+  padding: 0.5rem;
+  box-shadow: 0 1px 2px rgba(0,0,0,0.04);
+  transition: transform .16s ease, box-shadow .16s ease, border-color .16s ease;
+}
+.challenge-button.btn-dark:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 16px 30px -16px rgba(0,0,0,0.35);
+  border-color: var(--cs-accent);
+}
+.challenge-inner p {
+  font-size: 1.06rem;
+  font-weight: 700;
+  margin-bottom: 0.55rem;
+  line-height: 1.2;
+}
+.challenge-inner span {
+  display: inline-block;
+  font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+  font-weight: 700;
+  font-size: 1.05rem;
+  color: var(--cs-accent);
+  background: var(--cs-accent-soft);
+  padding: 2px 12px;
+  border-radius: 999px;
+}
+
+/* Etat resolu */
+.challenge-button.challenge-solved.btn-dark {
+  --bs-btn-border-color: var(--cs-accent);
+  --bs-btn-hover-border-color: var(--cs-accent);
+  background: var(--cs-accent-soft) !important;
+  border-color: var(--cs-accent) !important;
+  opacity: 1;
+}
+.challenge-solved .challenge-inner p {
+  color: var(--cs-accent);
+}
+
+/* ---------- Scoreboard ---------- */
+#scoreboard .nav-pills .nav-link {
+  border-radius: 999px;
+  font-weight: 600;
+}
+#scoreboard .nav-pills .nav-link.active {
+  background: var(--cs-accent);
+}
+#scoreboard table.table {
+  border: 1px solid var(--bs-border-color);
+  border-radius: 16px;
+  overflow: hidden;
+  border-collapse: separate;
+  border-spacing: 0;
+}
+#scoreboard table.table thead th {
+  text-transform: uppercase;
+  font-size: 0.74rem;
+  letter-spacing: 1px;
+  color: var(--bs-secondary-color);
+  background: transparent;
+  border-bottom: 1px solid var(--bs-border-color);
+  padding: 0.9rem 1rem;
+}
+#scoreboard table.table tbody th,
+#scoreboard table.table tbody td {
+  padding: 0.85rem 1rem;
+  vertical-align: middle;
+}
+/* Top 3 : or / argent / bronze sur le rang */
+#scoreboard tbody tr:nth-child(1) th[scope="row"] { color: #f59e0b; font-weight: 800; font-size: 1.05rem; }
+#scoreboard tbody tr:nth-child(2) th[scope="row"] { color: #94a3b8; font-weight: 800; }
+#scoreboard tbody tr:nth-child(3) th[scope="row"] { color: #b45309; font-weight: 800; }
+
+/* ---------- Masquer le footer "Powered by CTFd" ---------- */
+footer.footer { display: none !important; }
+/* CS29-CUSTOM-END */
+</style>
