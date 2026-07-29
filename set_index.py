@@ -15,6 +15,8 @@ with app.app_context():
     else:
         p.content = html
         p.draft = False
+    if hasattr(p, "format"):
+        p.format = "html"   # rendu HTML brut (sinon Markdown traite le HTML indente comme du code)
     db.session.commit()
 
     # Vider le cache de config/pages pour un affichage immediat

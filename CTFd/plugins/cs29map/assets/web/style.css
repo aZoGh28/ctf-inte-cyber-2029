@@ -1,0 +1,33 @@
+body {
+  margin: 40px;
+  font-family: Arial, sans-serif;
+  color: #222;
+  background: #fff;
+}
+
+h1 {
+  font-size: 28px;
+  font-weight: 700;
+  margin: 0 0 16px;
+}
+
+hr {
+  border: 0;
+  border-top: 1px solid #ddd;
+  margin: 16px 0;
+}
+
+form {
+  margin-top: 20px;
+}
+
+input {
+  padding: 8px 10px;
+  border: 1px solid #bbb;
+  background: #f7f7f7;
+  color: #222;
+}
+
+input[type="submit"] {
+  cursor: not-allowed;
+}

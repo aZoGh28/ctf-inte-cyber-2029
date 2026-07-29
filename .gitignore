@@ -93,6 +93,8 @@ CTFd/plugins/*
 !CTFd/plugins/dynamic_challenges/
 !CTFd/plugins/flags/
 !CTFd/plugins/*.py
+!CTFd/plugins/cs29map/
+!CTFd/plugins/cs29map/**
 
 # non-default themes
 CTFd/themes/*
