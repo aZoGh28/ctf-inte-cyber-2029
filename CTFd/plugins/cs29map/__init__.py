@@ -85,6 +85,7 @@ def load(app):
     bp = Blueprint("cs29map", __name__)
 
     # URL propre pour le challenge web : /web1/ (et /web1/page2.html, /web1/login.js ...)
+    @bp.route("/web1", methods=["GET"])
     @bp.route("/web1/", methods=["GET"])
     def cs_site_index():
         return send_from_directory(WEB_DIR, "page1.html")
@@ -93,7 +94,6 @@ def load(app):
     def cs_site_files(path):
         return send_from_directory(WEB_DIR, path)
 
-    WEB2_CODE = "CS29-R4PIDF1RE"
     WEB2_FLAG = os.environ.get("CS29_WEB2_FLAG", "CS29{REMPLACE_MOI_web2}")
     # Epreuve : la page affiche un calcul "a + b". Le formulaire n'a PAS de champ
     # visible -> le joueur doit decouvrir le parametre POST "result" (F12 / DevTools)
@@ -114,6 +114,13 @@ def load(app):
             tpl = fh.read()
         return render_template_string(tpl, a=a, b=b, count=count)
 
+    def render_web2_success():
+        # Epreuve reussie -> on affiche directement le flag (injecte depuis l'env).
+        with open(os.path.join(WEB_DIR, "success.html"), encoding="utf-8") as fh:
+            tpl = fh.read()
+        return render_template_string(tpl, flag=WEB2_FLAG)
+
+    @bp.route("/web2", methods=["GET"])
     @bp.route("/web2/", methods=["GET"])
     def cs_web2_index():
         return render_web2()
@@ -125,10 +132,6 @@ def load(app):
     @bp.route("/web2/action", methods=["POST"])
     @bypass_csrf_protection
     def cs_web2_action():
-        # Etape 2 : renvoyer le code debloque en POST -> le flag
-        if request.values.get("code") == WEB2_CODE:
-            return WEB2_FLAG
-
         result = request.form.get("result")
         if result is None:
             session["web2_count"] = 0
@@ -159,7 +162,7 @@ def load(app):
             session["web2_count"] = count
             if count >= WEB2_TARGET:
                 session["web2_count"] = 0
-                return send_from_directory(WEB_DIR, "code.html")
+                return render_web2_success()
 
         return redirect(url_for("cs29map.cs_web2_index"))
 
