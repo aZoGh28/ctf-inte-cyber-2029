@@ -95,6 +95,11 @@ CTFd/plugins/*
 !CTFd/plugins/*.py
 !CTFd/plugins/cs29map/
 !CTFd/plugins/cs29map/**
+# cs29map : artefacts de dev + fichier contenant un flag -> NE JAMAIS versionner (repo public)
+CTFd/plugins/cs29map/**/__pycache__/
+CTFd/plugins/cs29map/assets/web/backend_web2.py
+CTFd/plugins/cs29map/assets/web/test.py
+CTFd/plugins/cs29map/assets/web/server.log
 
 # non-default themes
 CTFd/themes/*

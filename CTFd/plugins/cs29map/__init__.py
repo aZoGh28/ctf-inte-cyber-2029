@@ -13,8 +13,9 @@ Aucun flag stocke ici (juste la structure).
 """
 import json
 import os
+import time
 
-from flask import Blueprint, request, jsonify, send_from_directory
+from flask import Blueprint, request, jsonify, send_from_directory, redirect, url_for
 
 from CTFd.utils import get_config, set_config
 from CTFd.utils.decorators import admins_only
@@ -24,6 +25,7 @@ from CTFd.plugins import (
     register_plugin_stylesheet,
     register_admin_plugin_script,
     register_admin_plugin_stylesheet,
+    bypass_csrf_protection,
 )
 
 CONFIG_KEY = "cs29map_config"
@@ -86,6 +88,32 @@ def load(app):
     @bp.route("/web1/<path:path>", methods=["GET"])
     def cs_site_files(path):
         return send_from_directory(WEB_DIR, path)
+
+    WEB2_CODE = "CS29-R4PIDF1RE"
+    WEB2_FLAG = os.environ.get("CS29_WEB2_FLAG", "CS29{REMPLACE_MOI_web2}")
+    web2_state = {"count": 0, "start": 0.0}
+
+    @bp.route("/web2/", methods=["GET"])
+    def cs_web2_index():
+        return send_from_directory(WEB_DIR, "web2.html")
+
+    @bp.route("/web2/action", methods=["POST"])
+    @bypass_csrf_protection
+    def cs_web2_action():
+        if request.args.get("code") == WEB2_CODE:
+            return WEB2_FLAG
+        st = web2_state
+        if st["count"] == 0:
+            st["start"] = time.time()
+            st["count"] = 1
+        elif time.time() - st["start"] < 1:
+            st["count"] += 1
+            if st["count"] >= 100:
+                st["count"] = 0
+                return send_from_directory(WEB_DIR, "code.html")
+        else:
+            st["count"] = 0
+        return redirect(url_for("cs29map.cs_web2_index"))
 
     @bp.route("/api/v1/cs29map", methods=["GET"])
     def api_get():
