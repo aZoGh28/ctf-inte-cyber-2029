@@ -1,7 +1,27 @@
-<html><form class="new" method="POST" action="/web2/action">
-    <label>Ce bouton ne fait rien</label>
-  <div class="row">
-    <button type="submit">Sauf peut être si tu arrives à cliquer dessus 100 fois en une seconde</button>
-  </div>
-</form>
+<!doctype html>
+<html lang="fr">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Web 2</title>
+    <link rel="stylesheet" type="text/css" href="web2.css" media="all">
+  </head>
+  <body>
+    <main>
+      <form method="post" action="/web2/action">
+        <h1>Ce bouton ne fait rien.</h1>
+        {% with messages = get_flashed_messages() %}
+          {% if messages %}
+            {% for message in messages %}
+              <p class="error">{{ message }}</p>
+            {% endfor %}
+          {% endif %}
+        {% endwith %}
+        <p>Sauf peut-être si tu arrives à résoudre ce calcul&nbsp;: <strong>{{a}} + {{b}}</strong>.</p>
+        <button type="submit">Envoyer le résultat</button>
+        <p class="hint">Mais où rentrer le résultat du calcul&nbsp;?</p>
+        <p class="hint">Encore {{10 - count}} calculs...</p>
+      </form>
+    </main>
+  </body>
 </html>
